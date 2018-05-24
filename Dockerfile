@@ -5,10 +5,16 @@ ARG FROM_IMG_TAG="7.4.1708"
 ARG FROM_IMG_HASH=""
 FROM ${DOCKER_REGISTRY}/${FROM_IMG_REPO}/${FROM_IMG_NAME}:${FROM_IMG_TAG}${DOCKER_IMG_HASH}
 
-ARG SPACK_VER=0.11.2
-LABEL org.spack.version=${SPACK_VER}
+ARG SPACK_COMMIT_TAG=missing-compiler-import
+ARG SPACK_GH_URL=https://github.com/
+ARG SPACK_GH_USER=michaelkuhn
+LABEL org.spack.tag=${SPACK_COMMIT_TAG}
 RUN yum update -y \
- && yum install -y wget automake curl gcc gcc-c++ gcc-gfortran libgfortran  make patch python libzip bzip2 gzip
-RUN mkdir -p /usr/local/src/spack/ \
- && wget -qO - https://github.com/spack/spack/releases/download/v${SPACK_VER}/spack-${SPACK_VER}.tar.gz |tar xfz - -C /usr/local/src/spack/ --strip-component=1
+ && yum install -y wget automake curl gcc gcc-c++ gcc-gfortran libgfortran  make patch python libzip bzip2 gzip unzip
+RUN mkdir -p /usr/local/src/ \
+ && cd /usr/local/src/ \
+ && wget -q ${SPACK_GH_URL}/${SPACK_GH_USER}/spack/archive/${SPACK_COMMIT_TAG}.zip \
+ && unzip ${SPACK_COMMIT_TAG}.zip \
+ && mv spack-missing-compiler-import /usr/local/src/spack \
+ && rm -f ${SPACK_COMMIT_TAG}.zip
 ENV PATH=${PATH}:/usr/local/src/spack/bin/
