@@ -15,6 +15,7 @@ RUN mkdir -p /opt/spack/ \
  && cd /opt/ \
  && wget -q ${SPACK_GH_URL}/${SPACK_GH_USER}/spack/archive/${SPACK_COMMIT_TAG}.zip \
  && unzip ${SPACK_COMMIT_TAG}.zip \
- && mv spack-missing-compiler-import /opt/spack \
+ && mv spack-missing-compiler-import/* /opt/spack \
+ && rm -rf spack-missing-compiler-import \
  && rm -f ${SPACK_COMMIT_TAG}.zip
 ENV PATH=${PATH}:/opt/spack/bin/
