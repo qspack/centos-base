@@ -10,7 +10,7 @@ ARG SPACK_GH_URL=https://github.com/
 ARG SPACK_GH_USER=spack
 LABEL org.spack.tag=${SPACK_COMMIT_TAG}
 RUN yum update -y \
- && yum install -y wget automake curl gcc gcc-c++ gcc-gfortran libgfortran  make patch python libzip bzip2 gzip unzip
+ && yum install -y wget automake curl gcc gcc-c++ gcc-gfortran libgfortran  make patch python libzip bzip2 gzip unzip which
 RUN mkdir -p /opt/spack/ \
  && cd /opt/ \
  && wget -q ${SPACK_GH_URL}/${SPACK_GH_USER}/spack/archive/${SPACK_COMMIT_TAG}.zip \
