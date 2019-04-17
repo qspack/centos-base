@@ -14,3 +14,4 @@ RUN yum update -y \
 RUN mkdir -p /opt/spack/ \
  && wget -qO - https://github.com/spack/spack/archive/v0.12.1.tar.gz |tar xfz - -C /opt/spack/ --strip-component=1
 ENV PATH=${PATH}:/opt/spack/bin/
+ENV FORCE_UNSAFE_CONFIGURE=1
